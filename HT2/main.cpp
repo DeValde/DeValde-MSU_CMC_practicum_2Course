@@ -45,8 +45,16 @@ public:
         l = 1;
         buffer = new char[1];
     }
+    mstring(const mstring &cop){
+        str = new char [cop.l];
+        buffer = new char [cop.l];
+        l = cop.l;
+        for (int i = 0; i < l; ++i) {
+            str[i] = cop.str[i];
+        }
+    }
     ~mstring(){
-        delete str;
+        delete[] str;
     }
 
     int length() const;
@@ -74,7 +82,7 @@ bool mstring::isempty() const{
 void mstring::add(char c) {
     copy();
     lold = l;
-    l+=2;
+    l+=1;
     delete[] str;
     str = new char [l];
     paste();
@@ -111,8 +119,8 @@ void mstring::add(const char *c) {
 void mstring:: insert(char c,int i){
     int k = i;
     int j = 0;
-    char cpy[l+1];
-    char save[l+1];
+    char cpy[l];
+    char save[l];
     strcpy(cpy,str);
     delete[] str;
     l ++;
